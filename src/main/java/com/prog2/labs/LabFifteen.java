@@ -11,8 +11,13 @@ public class LabFifteen {
      *
      */
     public static void main(String[] args) {
+        Library l1 = Library.getInstance();
 
+        Book book = new Book ("Harry Potter", "JK Rowling", 45);
+        l1.addBook(book);
 
+        MainForm mainForm = new MainForm();
+        mainForm.setVisible(true);
     }
 
     /**

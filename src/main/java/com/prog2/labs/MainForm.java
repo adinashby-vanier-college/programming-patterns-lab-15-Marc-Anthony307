@@ -4,6 +4,8 @@
  */
 package com.prog2.labs;
 
+import java.util.Locale;
+import java.util.ResourceBundle;
 import javax.swing.DefaultListModel;
 
 /**
@@ -12,11 +14,19 @@ import javax.swing.DefaultListModel;
  */
 public class MainForm extends javax.swing.JFrame {
 
+    private ResourceBundle bundle;
+    private ResourceBundle bundleFR;
+
     /**
      * Creates new form MainForm
      */
     public MainForm() {
         initComponents();
+        updateBookListDisplay();
+
+        bundle = ResourceBundle.getBundle("FormLanguage");
+        bundleFR = ResourceBundle.getBundle("FormLanguage", Locale.FRANCE);
+
     }
 
     /**
@@ -39,9 +49,10 @@ public class MainForm extends javax.swing.JFrame {
         authorLabel = new javax.swing.JLabel();
         stockLabel = new javax.swing.JLabel();
         libraryLabel = new javax.swing.JLabel();
+        languagesLabel = new javax.swing.JLabel();
+        languageBox = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle("libraryFrame");
         setLocation(new java.awt.Point(700, 300));
         setResizable(false);
 
@@ -81,6 +92,16 @@ public class MainForm extends javax.swing.JFrame {
         libraryLabel.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         libraryLabel.setText("Generic Library");
 
+        languagesLabel.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        languagesLabel.setText("Languages:");
+
+        languageBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "English", "French" }));
+        languageBox.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                languageBoxActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -88,32 +109,42 @@ public class MainForm extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(20, 20, 20)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(libraryLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 182, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(authorLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(stockLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(bookLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(authorLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(stockLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(bookLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(bookStock, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(authorName, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(bookName, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 251, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addComponent(libraryLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                    .addComponent(bookStock, javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(authorName, javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(bookName, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(languagesLabel)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 251, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(addBookButton, javax.swing.GroupLayout.PREFERRED_SIZE, 535, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(12, 12, 12))))
+                                .addComponent(languageBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(addBookButton, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 535, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addGap(12, 12, 12))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(libraryLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 42, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(libraryLabel)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGap(0, 11, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(languageBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(languagesLabel))))
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -156,6 +187,22 @@ public class MainForm extends javax.swing.JFrame {
         l1.addBook(book);
         updateBookListDisplay();
     }//GEN-LAST:event_addBookButtonActionPerformed
+
+    private void languageBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_languageBoxActionPerformed
+        if (languageBox.getSelectedItem().toString().equalsIgnoreCase("english")) {
+            bookLabel.setText(bundle.getString("bookName"));
+            authorLabel.setText(bundle.getString("authorName"));
+            stockLabel.setText(bundle.getString("stockLabel"));
+            libraryLabel.setText(bundle.getString("title"));
+            addBookButton.setText(bundle.getString("add"));
+        } else if (languageBox.getSelectedItem().toString().equalsIgnoreCase("french")) {
+            bookLabel.setText(bundleFR.getString("bookName"));
+            authorLabel.setText(bundleFR.getString("authorName"));
+            stockLabel.setText(bundleFR.getString("stockLabel"));
+            libraryLabel.setText(bundleFR.getString("title"));
+            addBookButton.setText(bundleFR.getString("add"));
+        }
+    }//GEN-LAST:event_languageBoxActionPerformed
     private void updateBookListDisplay() {
         Library l1 = Library.getInstance();
         DefaultListModel<String> model = new DefaultListModel<>();
@@ -191,6 +238,7 @@ public class MainForm extends javax.swing.JFrame {
             java.util.logging.Logger.getLogger(MainForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
+
         Library l1;
 
         l1 = Library.getInstance();
@@ -213,6 +261,8 @@ public class MainForm extends javax.swing.JFrame {
     private javax.swing.JTextField bookStock;
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JComboBox<String> languageBox;
+    private javax.swing.JLabel languagesLabel;
     private javax.swing.JLabel libraryLabel;
     private javax.swing.JLabel stockLabel;
     // End of variables declaration//GEN-END:variables
