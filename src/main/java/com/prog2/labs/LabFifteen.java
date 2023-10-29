@@ -16,7 +16,9 @@ public class LabFifteen {
         Library library = Library.getInstance();
         library.addBook(new Book("Harry Potter", "JK Rowling", 45));
 
+        Controller controller = Controller.getInstance();
         MainForm mainForm = new MainForm();
+        controller.setMainFormView(mainForm);
         LibraryController libraryController = new LibraryController(library, mainForm);
         mainForm.setLibraryController(libraryController);
         mainForm.setVisible(true);

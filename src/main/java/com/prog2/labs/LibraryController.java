@@ -11,7 +11,7 @@ import javax.swing.DefaultListModel;
  *
  * @author Marc-Anthony
  */
-public class LibraryController {  
+public class LibraryController {
 
     private Library model;
     private MainForm view;
@@ -64,12 +64,27 @@ public class LibraryController {
 
     //control view object
     public void updateView() {
-        Controller.getInstance().updateBookTextArea(this);
+        updateBookTextArea(this);
+    }
+
+    public void setView(MainForm view) {
+        this.view = view;
     }
 
     public void addBook(String name, String author, int stock) {
         Book newBook = new Book(name, author, stock);
-        model.addBook(newBook); 
+        model.addBook(newBook);
+
+    }
+
+    public void updateBookTextArea(LibraryController libraryController) {
+
+        StringBuilder booksDisplay = new StringBuilder();
+
+        for (Book book : libraryController.getLibraryBooks()) {
+            booksDisplay.append(book.toString());
+        }
+        view.booksTextArea.setText(booksDisplay.toString());
 
     }
 }

@@ -25,7 +25,7 @@ public class MainForm extends javax.swing.JFrame {
      */
     public MainForm() {
         initComponents();
-        
+
         bundle = ResourceBundle.getBundle("FormLanguage");
         bundleFR = ResourceBundle.getBundle("FormLanguage", Locale.FRANCE);
 
@@ -192,7 +192,7 @@ public class MainForm extends javax.swing.JFrame {
         int stock = Integer.parseInt(bookStock.getText());
 
         libraryController.addBook(name, author, stock);
-        updateBookTextArea();
+        libraryController.updateView();
     }//GEN-LAST:event_addBookButtonActionPerformed
 
     private void languageBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_languageBoxActionPerformed
@@ -248,7 +248,9 @@ public class MainForm extends javax.swing.JFrame {
                 Library library = Library.getInstance();
                 library.addBook(new Book("Harry Potter", "JK Rowling", 45));
 
+                Controller controller = Controller.getInstance();
                 MainForm mainForm = new MainForm();
+                controller.setMainFormView(mainForm);
                 LibraryController libraryController = new LibraryController(library, mainForm);
                 mainForm.setLibraryController(libraryController);
                 mainForm.setVisible(true);
@@ -261,16 +263,6 @@ public class MainForm extends javax.swing.JFrame {
         this.libraryController = libraryController;
     }
 
-    public void updateBookTextArea() {
-        
-        StringBuilder booksDisplay = new StringBuilder();
-
-        for (Book book : libraryController.getLibraryBooks()) {
-            booksDisplay.append(book.toString());
-        }
-        booksTextArea.setText(booksDisplay.toString());
-
-    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton addBookButton;
     private javax.swing.JLabel authorLabel;

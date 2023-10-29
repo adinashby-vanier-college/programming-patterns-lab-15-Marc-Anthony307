@@ -55,26 +55,8 @@ public class Controller {
         return libraryControllers;
     }
 
-    public void showForm() {
-        mainFormView.show();
+    public void setMainFormView(MainForm mainFormView) {
+        this.mainFormView = mainFormView;
     }
 
-    public void processInputTextField() {
-
-        String bookName, authorName;
-        int bookStock;
-
-        bookName = mainFormView.bookName.getText();
-        authorName = mainFormView.authorName.getText();
-        bookStock = Integer.parseInt(mainFormView.bookStock.getText());
-        
-        Book book = new Book(bookName, authorName, bookStock);
-    }
-
-    public void updateBookTextArea(LibraryController libraryController) {
-
-        for (Book book : libraryController.getLibraryBooks()) {
-            mainFormView.booksTextArea.append(book.toString());
-        }
-    }
 }
