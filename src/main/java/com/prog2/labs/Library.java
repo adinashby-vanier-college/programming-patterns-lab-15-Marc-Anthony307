@@ -5,20 +5,22 @@
 package com.prog2.labs;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 /**
  *
  * @author Marc-Anthony
  */
-public class Library {
+public class Library implements LibraryObservable {
 
+    private List<LibraryObserver> observers = new ArrayList<>();
     private static Library lObject;
     private ArrayList<Book> books;
 
     public Library() {
         books = new ArrayList<>();
-        
+
     }
 
     public static Library getInstance() {    //Singleton design pattern
@@ -32,6 +34,22 @@ public class Library {
     public void addBook(Book book) {
 
         books.add(book);
+        notifyObservers();  //notify the observers when a new book is added
+
+    }
+
+    public void registerObserver(LibraryObserver observer) {
+        observers.add(observer);
+    }
+
+    public void removeObserver(LibraryObserver observer) {
+        observers.remove(observer);
+    }
+
+    public void notifyObservers() {
+        for (LibraryObserver observer : observers) {
+            observer.update();  //this is responsible for updating the booksTextBox in the MainForm, using it's update() method
+        }
     }
 
     public static Library getlObject() {

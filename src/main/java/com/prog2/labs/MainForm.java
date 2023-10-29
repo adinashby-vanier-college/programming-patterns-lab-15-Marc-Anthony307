@@ -14,7 +14,7 @@ import javax.swing.JTextArea;
  *
  * @author Marc-Anthony
  */
-public class MainForm extends javax.swing.JFrame {
+public class MainForm extends javax.swing.JFrame implements LibraryObserver {
 
     private ResourceBundle bundle;
     private ResourceBundle bundleFR;
@@ -25,6 +25,8 @@ public class MainForm extends javax.swing.JFrame {
      */
     public MainForm() {
         initComponents();
+
+        Library.getInstance().registerObserver(this);
 
         bundle = ResourceBundle.getBundle("FormLanguage");
         bundleFR = ResourceBundle.getBundle("FormLanguage", Locale.FRANCE);
@@ -192,7 +194,6 @@ public class MainForm extends javax.swing.JFrame {
         int stock = Integer.parseInt(bookStock.getText());
 
         libraryController.addBook(name, author, stock);
-        libraryController.updateView();
     }//GEN-LAST:event_addBookButtonActionPerformed
 
     private void languageBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_languageBoxActionPerformed
@@ -263,6 +264,10 @@ public class MainForm extends javax.swing.JFrame {
         this.libraryController = libraryController;
     }
 
+    public void update() {
+        // Code to update MainForm based on Library changes
+        libraryController.updateView();
+    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton addBookButton;
     private javax.swing.JLabel authorLabel;
@@ -278,4 +283,5 @@ public class MainForm extends javax.swing.JFrame {
     private javax.swing.JLabel libraryLabel;
     private javax.swing.JLabel stockLabel;
     // End of variables declaration//GEN-END:variables
+
 }
