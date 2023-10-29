@@ -16,8 +16,9 @@ public class Library {
     private static Library lObject;
     private ArrayList<Book> books;
 
-    private Library() {
+    public Library() {
         books = new ArrayList<>();
+        
     }
 
     public static Library getInstance() {    //Singleton design pattern

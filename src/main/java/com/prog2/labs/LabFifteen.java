@@ -1,5 +1,7 @@
 package com.prog2.labs;
 
+import java.util.ArrayList;
+
 /**
  * @author adinashby
  *
@@ -11,13 +13,14 @@ public class LabFifteen {
      *
      */
     public static void main(String[] args) {
-        Library l1 = Library.getInstance();
-
-        Book book = new Book ("Harry Potter", "JK Rowling", 45);
-        l1.addBook(book);
+        Library library = Library.getInstance();
+        library.addBook(new Book("Harry Potter", "JK Rowling", 45));
 
         MainForm mainForm = new MainForm();
+        LibraryController libraryController = new LibraryController(library, mainForm);
+        mainForm.setLibraryController(libraryController);
         mainForm.setVisible(true);
+
     }
 
     /**

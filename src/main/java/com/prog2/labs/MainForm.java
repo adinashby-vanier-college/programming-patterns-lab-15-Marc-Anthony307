@@ -4,9 +4,11 @@
  */
 package com.prog2.labs;
 
+import java.awt.Dimension;
 import java.util.Locale;
 import java.util.ResourceBundle;
 import javax.swing.DefaultListModel;
+import javax.swing.JTextArea;
 
 /**
  *
@@ -16,14 +18,14 @@ public class MainForm extends javax.swing.JFrame {
 
     private ResourceBundle bundle;
     private ResourceBundle bundleFR;
+    private LibraryController libraryController;
 
     /**
      * Creates new form MainForm
      */
     public MainForm() {
         initComponents();
-        updateBookListDisplay();
-
+        
         bundle = ResourceBundle.getBundle("FormLanguage");
         bundleFR = ResourceBundle.getBundle("FormLanguage", Locale.FRANCE);
 
@@ -39,8 +41,6 @@ public class MainForm extends javax.swing.JFrame {
     private void initComponents() {
 
         buttonGroup1 = new javax.swing.ButtonGroup();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        bookList = new javax.swing.JList<>();
         bookStock = new javax.swing.JTextField();
         addBookButton = new javax.swing.JButton();
         bookName = new javax.swing.JTextField();
@@ -51,12 +51,13 @@ public class MainForm extends javax.swing.JFrame {
         libraryLabel = new javax.swing.JLabel();
         languagesLabel = new javax.swing.JLabel();
         languageBox = new javax.swing.JComboBox<>();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        booksTextArea = new javax.swing.JTextArea();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("libraryFrame");
         setLocation(new java.awt.Point(700, 300));
         setResizable(false);
-
-        jScrollPane1.setViewportView(bookList);
 
         bookStock.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -102,14 +103,20 @@ public class MainForm extends javax.swing.JFrame {
             }
         });
 
+        booksTextArea.setEditable(false);
+        booksTextArea.setColumns(20);
+        booksTextArea.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        booksTextArea.setRows(5);
+        jScrollPane2.setViewportView(booksTextArea);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(20, 20, 20)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(authorLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(stockLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -119,9 +126,9 @@ public class MainForm extends javax.swing.JFrame {
                             .addComponent(bookStock, javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(authorName, javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(bookName, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 251, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 245, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
@@ -148,17 +155,17 @@ public class MainForm extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(bookName, javax.swing.GroupLayout.DEFAULT_SIZE, 47, Short.MAX_VALUE)
-                            .addComponent(bookLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(bookName, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(bookLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(7, 7, 7)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(authorName, javax.swing.GroupLayout.DEFAULT_SIZE, 47, Short.MAX_VALUE)
-                            .addComponent(authorLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(authorName, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(authorLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(bookStock, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(stockLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 154, Short.MAX_VALUE))
+                            .addComponent(stockLabel)))
+                    .addComponent(jScrollPane2))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(addBookButton, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(14, 14, 14))
@@ -180,12 +187,12 @@ public class MainForm extends javax.swing.JFrame {
     }//GEN-LAST:event_authorNameActionPerformed
 
     private void addBookButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addBookButtonActionPerformed
-        Library l1 = Library.getInstance();
+        String name = bookName.getText();
+        String author = authorName.getText();
+        int stock = Integer.parseInt(bookStock.getText());
 
-        Book book = new Book(bookName.getText(), authorName.getText(), Integer.parseInt(bookStock.getText()));
-
-        l1.addBook(book);
-        updateBookListDisplay();
+        libraryController.addBook(name, author, stock);
+        updateBookTextArea();
     }//GEN-LAST:event_addBookButtonActionPerformed
 
     private void languageBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_languageBoxActionPerformed
@@ -195,22 +202,17 @@ public class MainForm extends javax.swing.JFrame {
             stockLabel.setText(bundle.getString("stockLabel"));
             libraryLabel.setText(bundle.getString("title"));
             addBookButton.setText(bundle.getString("add"));
+            this.pack();    //making sure the content in the frame fits
+
         } else if (languageBox.getSelectedItem().toString().equalsIgnoreCase("french")) {
             bookLabel.setText(bundleFR.getString("bookName"));
             authorLabel.setText(bundleFR.getString("authorName"));
             stockLabel.setText(bundleFR.getString("stockLabel"));
             libraryLabel.setText(bundleFR.getString("title"));
             addBookButton.setText(bundleFR.getString("add"));
+            this.pack();    //making sure the content in the frame fits
         }
     }//GEN-LAST:event_languageBoxActionPerformed
-    private void updateBookListDisplay() {
-        Library l1 = Library.getInstance();
-        DefaultListModel<String> model = new DefaultListModel<>();
-        for (Book book : l1.getBooks()) {
-            model.addElement(book.toString());
-        }
-        bookList.setModel(model);
-    }
 
     /**
      * @param args the command line arguments
@@ -239,28 +241,46 @@ public class MainForm extends javax.swing.JFrame {
         }
         //</editor-fold>
 
-        Library l1;
-
-        l1 = Library.getInstance();
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new MainForm().setVisible(true);
+                Library library = Library.getInstance();
+                library.addBook(new Book("Harry Potter", "JK Rowling", 45));
+
+                MainForm mainForm = new MainForm();
+                LibraryController libraryController = new LibraryController(library, mainForm);
+                mainForm.setLibraryController(libraryController);
+                mainForm.setVisible(true);
+
             }
         });
     }
 
+    public void setLibraryController(LibraryController libraryController) {
+        this.libraryController = libraryController;
+    }
+
+    public void updateBookTextArea() {
+        
+        StringBuilder booksDisplay = new StringBuilder();
+
+        for (Book book : libraryController.getLibraryBooks()) {
+            booksDisplay.append(book.toString());
+        }
+        booksTextArea.setText(booksDisplay.toString());
+
+    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton addBookButton;
     private javax.swing.JLabel authorLabel;
-    private javax.swing.JTextField authorName;
+    public javax.swing.JTextField authorName;
     private javax.swing.JLabel bookLabel;
-    private javax.swing.JList<String> bookList;
-    private javax.swing.JTextField bookName;
-    private javax.swing.JTextField bookStock;
+    public javax.swing.JTextField bookName;
+    public javax.swing.JTextField bookStock;
+    public javax.swing.JTextArea booksTextArea;
     private javax.swing.ButtonGroup buttonGroup1;
-    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JComboBox<String> languageBox;
     private javax.swing.JLabel languagesLabel;
     private javax.swing.JLabel libraryLabel;

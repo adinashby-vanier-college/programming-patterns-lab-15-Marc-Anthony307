@@ -74,7 +74,7 @@ public class Book {
 
     @Override
     public String toString() {
-        return "Book: " + this.name + " - Author: " + this.author + " - Stock: " + this.stock;
+        return "Book: " + this.name + "\nAuthor: " + this.author + "\nStock: " + this.stock + "\n\n";
     }
 
 }
